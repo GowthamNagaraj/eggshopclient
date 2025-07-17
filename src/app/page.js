@@ -6,6 +6,8 @@ import BuyEggsContainer from "@/components/BuyEggsContainer";
 import EggsVariety from "@/components/EggsVariety";
 import HeroSlider from "@/components/HeroSlider";
 import Navbar from "@/components/Navbar";
+import BottomBanner from '@/components/BottomBanner';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   useEffect(() => {
@@ -21,6 +23,8 @@ export default function Home() {
         <HeroSlider />
         <EggsVariety />
         <BuyEggsContainer />
+        <BottomBanner />
+        <Footer />
       </div>
     </div>
   );
