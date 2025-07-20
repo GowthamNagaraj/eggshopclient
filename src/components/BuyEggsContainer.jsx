@@ -4,6 +4,7 @@ import whiteEggs from '@/assets/varietyeggs/whiteeggs.png'
 import kadaiEggs from '@/assets/varietyeggs/kadaieggs.png'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 const productsList = {
         brownEggs: [
@@ -93,7 +94,7 @@ const BuyEggsContainer = () => {
                 <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 justify-items-center gap-y-12 p-6'>
                     {
                         products.map((prods, i) => (
-                            <div className="w-60 h-60 md:w-56 lg:w-40 xl:w-56 2xl:w-60 rounded-2xl bg-slate-50" key={i}>
+                            <div className="w-60 h-60 md:w-56 lg:w-40 xl:w-56 2xl:w-60 rounded-2xl bg-slate-50" key={i} >
                                 <div className="flex flex-col items-center p-6">
                                     <Image
                                         src={prods.prodImage}
@@ -107,7 +108,7 @@ const BuyEggsContainer = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300'>Add to Cart</button>
+                                <Link href={'/viewProducts/1'}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500'>View to Products</button></Link>
                             </div>
                         ))
                     }

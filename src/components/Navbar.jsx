@@ -4,6 +4,7 @@ import cartIcon from "../assets/cartIcon.png";
 import logo from "@/assets/logo.png";
 import Image from 'next/image';
 import mobilemenu from "@/assets/PrimeAlignJustify.png"
+import Link from 'next/link';
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -24,34 +25,38 @@ const Navbar = () => {
         />
       </div>
       <div className="flex flex-col items-center transition-none duration-300 ease-in-out justify-center p-4" hidden={!mobileMenu}>
-        <Image
-          src={logo}
-          alt="Cart Icon"
-          className="cursor-pointer w-56 h-20"
-        />
+        <Link href={'/'}><Image
+            src={logo}
+            alt="Cart Icon"
+            className="cursor-pointer w-56 h-20"
+          />
+          </Link>
         <div className="flex items-center gap-x-10 ml-4 mt-4">
-          <Image
+          <Link href={'/Cart/1'}><Image
             src={cartIcon}
             alt="Cart Icon"
             className="cursor-pointer w-7 h-7"
           />
+          </Link>
           <button className='px-6 py-2 bg-amber-300'>Login</button>
         </div>
       </div>
       {/* desktop responsive */}
       <div className="md:flex hidden items-center justify-between w-full">
         <nav className='md:flex hidden items-center justify-between w-full'>
-          <Image
+          <Link href={'/'}><Image
             src={logo}
             alt="Cart Icon"
             className="cursor-pointer w-56 h-20"
           />
+          </Link>
           <div className="flex items-center justify-between gap-x-10">
-            <Image
-              src={cartIcon}
-              alt="Cart Icon"
-              className="cursor-pointer w-7 h-7"
-            />
+            <Link href={'/Cart/1'}><Image
+            src={cartIcon}
+            alt="Cart Icon"
+            className="cursor-pointer w-7 h-7"
+          />
+          </Link>
 
             <button className='px-6 py-2 bg-amber-300'>Login</button>
           </div>
