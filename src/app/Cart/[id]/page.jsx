@@ -8,7 +8,7 @@ const Cart = () => {
   const {id} = useParams();
   
   return (
-    <div>
+    <div className='bg-white w-full'>
         <Navbar />
         <CartItem/>
     </div>
