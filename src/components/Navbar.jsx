@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div className="min-w-screen bg-slate-50 px-24 py-2 shadow-2xl">
       {/* mobille responsive */}
-      <div className="absolute top-4 right-4 z-50 flex items-center justify-between gap-x-4 bg-slate-50">
+      <div className="absolute top-4 right-4 z-50 flex items-center justify-between gap-4 bg-white">
         <Image
           src={mobilemenu}
           alt="Mobile Menu Icon"
