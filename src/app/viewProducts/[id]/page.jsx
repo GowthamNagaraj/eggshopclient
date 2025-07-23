@@ -21,9 +21,9 @@ import Footer from '@/components/Footer';
 const viewProducts = () => {
   const [count, setCount] = useState(1);
   return (
-    <div className='overflow-hidden bg-white mt-16 md:mt-0'>
+    <div className='overflow-hidden bg-white mt-14 md:mt-0'>
       <Navbar />
-      <div className='min-w-full min-h-full md:px-28 px-12 mt-10 mb-20 overflow-x-hidden'>
+      <div className='min-w-full min-h-full md:px-28 px-12 mt-10 mb-20 overflow-x-hidden bg-white'>
         <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2'>
           <div data-aos="fade-up" className='max-w-md md:max-w-xl lg:max-w-3xl md:col-span-2 lg:col-span-1 max-h-[500px]'><ProductViewSlider /></div>
 
