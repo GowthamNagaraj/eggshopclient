@@ -17,8 +17,8 @@ const Footer = () => {
         { id: 5, names: 'x', url: x },
     ]
     return (
-        <div className='min-w-screen min-h-96 bg-black md:mt-20 mt-0 flex items-center justify-center px-80'>
-            <div className="w-full h-56">
+        <div className='min-w-screen min-h-96 bg-black md:mt-20 mt-0 flex items-center justify-center px-40'>
+            <div className="h-56">
                 <div className="flex items-center justify-center gap-6">
                     {
                         socialIcons.map((sc, i) => (

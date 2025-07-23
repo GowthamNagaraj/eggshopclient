@@ -38,7 +38,7 @@ const Navbar = () => {
             className="cursor-pointer w-7 h-7"
           />
           </Link>
-          <button className='px-6 py-2 bg-amber-300'>Login</button>
+          <button className='px-4 py-1 md:px-6 md:py-2 bg-amber-300'>Login</button>
         </div>
       </div>
       {/* desktop responsive */}
