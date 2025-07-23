@@ -35,17 +35,17 @@ const ReviewsBox = () => {
           <div className="flex flex-col md:flex-col lg:flex-row xl:flex-row 2xl:flex-row gap-1 items-center justify-evenly border border-slate-200 shadow-xl p-10 rounded-2xl" data-aos="fade-down">
               <div className='bg-slate-50 p-6' data-aos="fade-up">
                 <form className='h-96 p-4'>
-                    <div className='flex items-center justify-between gap-6 mb-6' data-aos="fade-left">
+                    <div className='flex items-center justify-between gap-6 mb-6 text-slate-600' data-aos="fade-left">
                         <label htmlFor="">Points:</label>
-                        <StarPoints />
+                        <StarPoints className="border-slate-600 border"/>
                     </div>
-                    <div className='flex items-center justify-between gap-6 mb-6' data-aos="fade-right">
+                    <div className='flex items-center justify-between gap-6 mb-6 text-slate-600' data-aos="fade-right">
                         <label htmlFor="">Photos:</label>
-                        <input type="file" name="choose file" className='border px-3 w-50'/>
+                        <input type="file" name="choose file" className='border border-slate-600 px-3 w-50'/>
                     </div>
-                    <div className='flex items-center justify-between gap-6 mb-6' data-aos="fade-down" >
+                    <div className='flex items-center justify-between gap-6 mb-6 text-slate-600' data-aos="fade-down" >
                         <label htmlFor="">Comments:</label>
-                        <textarea className='w-50 h-[100px] border'></textarea>
+                        <textarea className='w-50 h-[100px] border border-slate-600'></textarea>
                     </div>
                     <div className='flex items-center justify-center gap-6' data-aos="fade-up">
                         <button className='w-40 h-10 bg-lime-400 text-amber-800 text-xl font-bold rounded-md hover:bg-lime-600 hover:text-amber-400 active:bg-lime-700 active:text-amber-200 cursor-pointer' onClick={(e)=>e.preventDefault()}>Submit</button>
