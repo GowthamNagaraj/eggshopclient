@@ -46,7 +46,7 @@ const CartItem = () => {
   return (
     <div className='w-full h-auto px-12 md:px-28 bg-white mt-14 md:mt-0'>
       <div className="grid grid-cols-1 md:grid-cols-3 bg-white p-2 gap-6">
-        <div className="bg-yellow-500 p-2 col-span-1 md:col-span-2">
+        <div className="bg-yellow-500 p-2 col-span-1 md:col-span-2 rounded-md" data-aos="fade-down">
           <div className="bg-white h-[500px] overflow-y-scroll">
             {
               cartItems.map((item,i)=>(
@@ -59,19 +59,23 @@ const CartItem = () => {
                   <div className="flex flex-col">
                     <h1>{item.productName}</h1>
                     <p>RS: <span className='line-through'>{item.oldPrice}</span> <span>{item.price}</span></p>
+                    <div className="flex items-center justify-between">
+                    <h1>Quantity</h1>
+                    <p>{item.quantity}</p>
                   </div>
-                  <div className='flex items-center justify-between p-2 bg-gray-200 w-32 rounded-bl-2xl rounded-tr-2xl'>
+                  </div>
+                  {/* <div className='flex items-center justify-between p-2 bg-gray-200 w-32 rounded-bl-2xl rounded-tr-2xl'>
                       <button className='cursor-pointer' onClick={() => setCount((prev) => prev > 1 ? prev - 1 : 1)}><FaMinusCircle className='text-red-600 text-3xl hover:text-red-700 active:text-red-800' /></button>
                       <p className='text-3xl font-bold text-amber-500 text-center'><RollingCounts number={count} /></p>
                       <button className='cursor-pointer' onClick={() => setCount((prev) => prev + 1)}><FaPlusCircle className='text-lime-600 hover:text-lime-700 active:text-lime-800 text-3xl' /></button>
-                    </div>
+                    </div> */}
                     <FaRegTrashAlt className='text-red-600 absolute top-2 right-2 cursor-pointer'/>
                 </div>
               ))
             }
           </div>
         </div>
-        <div className="bg-yellow-500 p-2">
+        <div className="bg-yellow-500 p-2 rounded-md" data-aos="fade-left">
           <div className="bg-white flex-col p-6">
             {
               cartItems.map((item,i)=>(
@@ -100,12 +104,12 @@ const CartItem = () => {
               <p>{totals}</p>
             </div>
             <div className="flex items-center justify-center">
-              <a href="#CheckoutForm" className='w-full h-auto bg-lime-500 text-center p-2 rounded-sm text-white font-bold text-2xl'>Checkout</a>
+              <a href="#CheckoutForm" className='w-full h-auto bg-lime-500 text-center p-2 rounded-sm text-white font-bold text-2xl'>Check your Details</a>
             </div>
           </div>
         </div>
       </div>
-      <CheckOut id="CheckoutForm"/>
+      <CheckOut />
     </div>
   )
 }

@@ -1,8 +1,6 @@
-// lib/utils.js
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs) {
-  return inputs
-    .filter(Boolean)  // false/undefined/"" remove pannum
-    .join(" ")        // join class names with space
-    .trim()
+  return twMerge(clsx(inputs));
 }
