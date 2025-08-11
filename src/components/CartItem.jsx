@@ -109,7 +109,7 @@ const CartItem = () => {
           </div>
         </div>
       </div>
-      <CheckOut />
+      <CheckOut id="CheckoutForm"/>
     </div>
   )
 }

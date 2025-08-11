@@ -51,11 +51,12 @@ const Navbar = () => {
           />
           </Link>
           <div className="flex items-center justify-between gap-x-10">
-            <Link href={'/Cart/1'}><Image
+            <Link href={'/Cart/1'} className='relative'><Image
             src={cartIcon}
             alt="Cart Icon"
             className="cursor-pointer w-7 h-7"
           />
+          <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-2 right-0'>3</span>
           </Link>
 
             <button className='px-6 py-2 bg-amber-300'>Login</button>
