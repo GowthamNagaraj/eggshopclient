@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import viewProductsReducer from "@/store/slices/ViewProducts"
+import CartReducer from "@/store/slices/Cart";
 
 export const store = configureStore({
     reducer: {
-        viewProducts: viewProductsReducer, // matches the slice name in ViewProducts.js
+        viewProducts: viewProductsReducer,
+        cart: CartReducer
     }
 })

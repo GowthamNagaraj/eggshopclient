@@ -5,14 +5,16 @@ import logo from "@/assets/logo.png";
 import Image from 'next/image';
 import mobilemenu from "@/assets/PrimeAlignJustify.png"
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [hiddenNavbar, setHiddenNavbar] = useState(false);
+  const cartItems = useSelector((state) => state.cart);
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   }
-
+  // console.log("Cart Items:", cartItems);
+  
   return (
     <div className="min-w-screen bg-slate-50 px-24 py-2 shadow-2xl">
       {/* mobille responsive */}
@@ -31,12 +33,13 @@ const Navbar = () => {
             className="cursor-pointer w-56 h-20"
           />
           </Link>
-        <div className="flex items-center gap-x-10 ml-4 mt-4">
+        <div className="flex items-center gap-x-10 ml-4 mt-4 relative">
           <Link href={'/Cart/1'}><Image
             src={cartIcon}
             alt="Cart Icon"
             className="cursor-pointer w-7 h-7"
           />
+          <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-1 ml-1'>{cartItems.length}</span>
           </Link>
           <button className='px-4 py-1 md:px-6 md:py-2 bg-amber-300'>Login</button>
         </div>
@@ -56,7 +59,7 @@ const Navbar = () => {
             alt="Cart Icon"
             className="cursor-pointer w-7 h-7"
           />
-          <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-2 right-0'>3</span>
+          <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-2 right-0'>{cartItems.length}</span>
           </Link>
 
             <button className='px-6 py-2 bg-amber-300'>Login</button>

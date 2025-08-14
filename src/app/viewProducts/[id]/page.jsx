@@ -16,15 +16,18 @@ import {
 import ReviewsBox from '@/components/ReviewsBox';
 import EggsVariety from '@/components/EggsVariety';
 import Footer from '@/components/Footer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'next/navigation';
+import { addToCart } from '@/store/slices/Cart';
 
 const viewProducts = () => {
   const [count, setCount] = useState(20);
   const datas = useSelector((state) => state.viewProducts);
+  const carts = useSelector((state) => state.cart);
   const {id} = useParams();
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(()=> {
     filterData();
@@ -39,6 +42,21 @@ const viewProducts = () => {
     } catch (error) {
       
     }
+  }
+
+  function handleAddtoCart(e) {
+    e.preventDefault();
+    const cartData = {
+      id: product.id,
+      productName: product.productName,
+      prodImage: product.images[0],
+      price: product.price,
+      oldPrice: product.oldPrice,
+      quantity: count
+    }
+    console.log("Cart Data: ", cartData);
+    dispatch(addToCart(cartData))
+    alert("Item Added to Cart");
   }
   return (
     <div className='overflow-hidden bg-white mt-10 md:mt-0'>
@@ -68,7 +86,7 @@ const viewProducts = () => {
                 </div>
               </div>
               <div className='flex flex-col md:flex-row items-center gap-6' data-aos="fade-left">
-                <button className='bg-lime-600 hover:bg-lime-700 active:bg-lime-800 text-slate-50 font-bold text-xl px-8 py-2 rounded-2xl cursor-pointer'>Add to Cart</button>
+                <button className='bg-lime-600 hover:bg-lime-700 active:bg-lime-800 text-slate-50 font-bold text-xl px-8 py-2 rounded-2xl cursor-pointer' onClick={(e) => handleAddtoCart(e)}>{carts.length > 0 ? "Go to cart" : "Add to cart"}</button>
                 <Dialog>
                   <DialogTrigger className="bg-amber-600 hover:bg-amber-700 text-slate-50 font-bold text-xl px-8 py-2 rounded-2xl cursor-pointer">Details</DialogTrigger>
                   <DialogContent>

@@ -8,23 +8,18 @@ import RollingCounts from './uis/RollingCounts'
 import { FaMinusCircle, FaPlusCircle, FaRegTrashAlt  } from "react-icons/fa";
 import { current } from '@reduxjs/toolkit'
 import CheckOut from './CheckOut'
+import { useSelector } from 'react-redux'
 
 const CartItem = () => {
+  const cartItems = useSelector((state)=> state.cart)
+  
   const GST = '18%';
-  const [cartItems, setCartItems] = useState([
-    { id: 1, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:50 },
-    { id: 2, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:80 },
-    { id: 3, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00', quantity:10 },
-    { id: 4, productName: "White Eggs", prodImage: whiteEggs, price: "4.00", oldPrice: '7.00', quantity:150 },
-    { id: 5, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00', quantity:160 },
-    { id: 6, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "4.00", oldPrice: '7.00', quantity:200 },
-  ])
 
   const [totals, setTotals] = useState(0)
   const [subtls, setSubtls] = useState(0)
   
   const discount = 173
-  const [count, setCount] = useState(1);
+  // const [count, setCount] = useState(1);
 
   useEffect(()=>{
     subTotal();
@@ -33,7 +28,7 @@ const CartItem = () => {
   function subTotal() {
     const amts = [];
     cartItems.map((item)=> amts.push(item.quantity * parseInt(item.price)));
-    const amt = amts.reduce((prev,curr)=> prev + curr);
+    const amt = cartItems.length > 0 ? amts.reduce((prev,curr)=> prev + curr) : 0;
     const gst = (amt * 18) / 100;
     const subTotal = amt + gst;
     const totalAmt = subTotal - discount
@@ -49,7 +44,7 @@ const CartItem = () => {
         <div className="bg-yellow-500 p-2 col-span-1 md:col-span-2 rounded-md" data-aos="fade-down">
           <div className="bg-white h-[500px] overflow-y-scroll">
             {
-              cartItems.map((item,i)=>(
+              cartItems.length > 0 ? cartItems.map((item,i)=>(
                 <div className="flex md:flex-row flex-col items-center bg-white space-y-6 relative p-6 border-b">
                   <Image 
                     src={item.prodImage}
@@ -71,7 +66,7 @@ const CartItem = () => {
                     </div> */}
                     <FaRegTrashAlt className='text-red-600 absolute top-2 right-2 cursor-pointer'/>
                 </div>
-              ))
+              )) : <div className='flex items-center justify-center h-full'>No Items in Cart</div>
             }
           </div>
         </div>
