@@ -6,75 +6,71 @@ import kadaiEggs from '@/assets/varietyeggs/kadaieggs.png'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const productsList = {
-        brownEggs: [
-            { id: 1, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00' },
-            { id: 2, productName: "Brown Eggs", prodImage: browneggs, price: "4.00", oldPrice: '7.00' },
-            { id: 3, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00' },
-            { id: 4, productName: "Brown Eggs", prodImage: browneggs, price: "5.00", oldPrice: '7.00' },
-            { id: 5, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00' },
-            { id: 6, productName: "Brown Eggs", prodImage: browneggs, price: "7.00", oldPrice: '7.00' },
-            { id: 7, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00' },
-            { id: 8, productName: "Brown Eggs", prodImage: browneggs, price: "2.00", oldPrice: '7.00' },
-            { id: 9, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00' },
-            { id: 10, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00' },
-            { id: 11, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00' },
-            { id: 12, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00' },
-            { id: 13, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00' },
-            { id: 14, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00' },
-            { id: 15, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00' },
-        ],
-        whiteEggs: [
-            { id: 1, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 2, productName: "White Eggs", prodImage: whiteEggs, price: "4.00", oldPrice: '7.00' },
-            { id: 3, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 4, productName: "White Eggs", prodImage: whiteEggs, price: "5.00", oldPrice: '7.00' },
-            { id: 5, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 6, productName: "White Eggs", prodImage: whiteEggs, price: "7.00", oldPrice: '7.00' },
-            { id: 7, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 8, productName: "White Eggs", prodImage: whiteEggs, price: "2.00", oldPrice: '7.00' },
-            { id: 9, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 10, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 11, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 12, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 13, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 14, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 15, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00' },
-        ],
-        kadaiEggs: [
-            { id: 1, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 2, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "4.00", oldPrice: '7.00' },
-            { id: 3, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 4, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "5.00", oldPrice: '7.00' },
-            { id: 5, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 6, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "7.00", oldPrice: '7.00' },
-            { id: 7, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 8, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "2.00", oldPrice: '7.00' },
-            { id: 9, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00' },
-            { id: 10, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 11, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 12, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 13, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 14, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00' },
-            { id: 15, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00' },
-        ],
-    }
+const productsList = [
+            { id: 1, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 2, productName: "Brown Eggs", prodImage: browneggs, price: "4.00", oldPrice: '7.00', quantity:0 },
+            { id: 3, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 4, productName: "Brown Eggs", prodImage: browneggs, price: "5.00", oldPrice: '7.00', quantity:0 },
+            { id: 5, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 6, productName: "Brown Eggs", prodImage: browneggs, price: "7.00", oldPrice: '7.00', quantity:0 },
+            { id: 7, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 8, productName: "Brown Eggs", prodImage: browneggs, price: "2.00", oldPrice: '7.00', quantity:0 },
+            { id: 9, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 10, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 11, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 12, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 13, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 14, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 15, productName: "Brown Eggs", prodImage: browneggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 13, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 17, productName: "White Eggs", prodImage: whiteEggs, price: "4.00", oldPrice: '7.00', quantity:0 },
+            { id: 18, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 19, productName: "White Eggs", prodImage: whiteEggs, price: "5.00", oldPrice: '7.00', quantity:0 },
+            { id: 20, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 21, productName: "White Eggs", prodImage: whiteEggs, price: "7.00", oldPrice: '7.00', quantity:0 },
+            { id: 22, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 23, productName: "White Eggs", prodImage: whiteEggs, price: "2.00", oldPrice: '7.00', quantity:0 },
+            { id: 24, productName: "White Eggs", prodImage: whiteEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 25, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 26, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 27, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 28, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 29, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 30, productName: "White Eggs", prodImage: whiteEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 31, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 32, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "4.00", oldPrice: '7.00', quantity:0 },
+            { id: 33, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 34, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "5.00", oldPrice: '7.00', quantity:0 },
+            { id: 35, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 36, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "7.00", oldPrice: '7.00', quantity:0 },
+            { id: 37, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 38, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "2.00", oldPrice: '7.00', quantity:0 },
+            { id: 39, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "3.00", oldPrice: '7.00', quantity:0 },
+            { id: 40, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 41, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 42, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 43, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 44, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+            { id: 45, productName: "Kadai Eggs", prodImage: kadaiEggs, price: "13.00", oldPrice: '7.00', quantity:0 },
+        ]
     
 const BuyEggsContainer = () => {
 
-    const [products, setProducts] = useState(productsList.brownEggs)
+    const [products, setProducts] = useState(productsList)
 
     function handleChange(params,e) {
         e.preventDefault();
         if(params === "BrownEggs"){
-            setProducts(productsList.brownEggs)
-            
+            const filterBrownEggs = productsList.filter(product => product.productName === "Brown Eggs");
+            setProducts(filterBrownEggs);
         }
         if(params === "WhiteEggs"){
-            setProducts(productsList.whiteEggs)
+            const filterWhiteEggs = productsList.filter(product => product.productName === "White Eggs");
+            setProducts(filterWhiteEggs);
         }
         if(params === "KadaiEggs"){
-            setProducts(productsList.kadaiEggs)
+            const filterKadaiEggs = productsList.filter(product => product.productName === "Kadai Eggs");
+            setProducts(filterKadaiEggs);
         }
     }
     
@@ -108,7 +104,7 @@ const BuyEggsContainer = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <Link href={'/viewProducts/1'}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500'>View to Products</button></Link>
+                                <Link href={`/viewProducts/${prods.id}`}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500'>View to Products</button></Link>
                             </div>
                         ))
                     }

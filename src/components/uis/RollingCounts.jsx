@@ -9,7 +9,7 @@ const RollingCounts = ({number}) => {
         setPrev(number)
     }, [number])
   return (
-    <div className="text-4xl font-bold h-10 overflow-hidden w-10">
+    <div className="text-xl font-bold overflow-hidden w-10">
       <AnimatePresence mode="popLayout">
         <motion.div
           key={number}

@@ -10,9 +10,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const slides = [image1, image2, image3];
+// const slides = [image1, image2, image3];
 
-const ProductViewSlider = () => {
+const ProductViewSlider = ({images}) => {
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
 
@@ -38,7 +38,7 @@ const ProductViewSlider = () => {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="rounded-lg"
       >
-        {slides.map((item, index) => (
+        {images.map((item, index) => (
           <SwiperSlide key={index}>
             <div className="relative w-full h-[250px] md:h-[400px] lg:h-[320px] xl:h-[400px] 2xl:h-[400px] rounded overflow-hidden">
               <Image 

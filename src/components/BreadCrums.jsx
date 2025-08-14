@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 import Link from 'next/link'
 
-const BreadCrums = () => {
+const BreadCrums = ({productName}) => {
   const pathName = usePathname()
   const pathSegments = pathName.split("/").filter(Boolean)
   
@@ -21,7 +21,7 @@ const BreadCrums = () => {
             <li key={index} className="flex items-center">
               <span className="mx-2">/</span>
               <Link href={fullPath} className="text-blue-400 hover:underline capitalize">
-                {label}
+                {productName}
               </Link>
             </li>
           );
