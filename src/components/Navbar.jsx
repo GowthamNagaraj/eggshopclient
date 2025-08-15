@@ -5,7 +5,8 @@ import logo from "@/assets/logo.png";
 import Image from 'next/image';
 import mobilemenu from "@/assets/PrimeAlignJustify.png"
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { showSpinner } from '@/store/slices/Spinner'
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -13,7 +14,15 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   }
-  console.log("Cart Items navbar:", cartItems);
+  const dispatch = useDispatch()
+  // console.log("Cart Items navbar:", cartItems);
+
+  function handleSpinner() {
+    const load = {
+      isLoading: true
+    };
+    dispatch(showSpinner(load));
+  }
   
   return (
     <div className="min-w-screen bg-slate-50 px-24 py-2 shadow-2xl">
@@ -58,6 +67,7 @@ const Navbar = () => {
             src={cartIcon}
             alt="Cart Icon"
             className="cursor-pointer w-7 h-7"
+            onClick={handleSpinner}
           />
           <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-2 right-0'>{cartItems.length}</span>
           </Link>

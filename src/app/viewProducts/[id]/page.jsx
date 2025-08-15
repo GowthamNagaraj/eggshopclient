@@ -14,11 +14,11 @@ import {
   DialogTrigger,
 } from "@/components/uis/dialog"
 import ReviewsBox from '@/components/ReviewsBox';
-import EggsVariety from '@/components/EggsVariety';
 import Footer from '@/components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'next/navigation';
 import { addToCart } from '@/store/slices/Cart';
+import BuyEggsContainer from '@/components/BuyEggsContainer';
 
 const viewProducts = () => {
   const [count, setCount] = useState(20);
@@ -32,14 +32,11 @@ const viewProducts = () => {
 
   useEffect(()=> {
     filterData();
-    // console.log("carts:", carts);
-    
   },[])
 
   function filterData(){
     try {
       const data = datas.filter((item) => item.id === parseInt(id));
-      console.log("Filtered Data: ", data);
       setProduct(data[0]);
       setImages(data[0].images);
     } catch (error) {
@@ -107,7 +104,8 @@ const viewProducts = () => {
         </section>
       </div>
       <ReviewsBox />
-      <EggsVariety />
+      {/* <EggsVariety /> */}
+      <BuyEggsContainer eggsVariety={product.productName}/>
       <Footer />
     </div>
   )

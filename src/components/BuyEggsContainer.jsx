@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import browneggs from '@/assets/varietyeggs/browneggs.png'
 import whiteEggs from '@/assets/varietyeggs/whiteeggs.png'
 import kadaiEggs from '@/assets/varietyeggs/kadaieggs.png'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { showSpinner } from '@/store/slices/Spinner'
 
 const productsList = [
             { id: 1, productName: "Brown Eggs", prodImage: browneggs, price: "3.00", oldPrice: '7.00', quantity:0 },
@@ -57,21 +59,31 @@ const productsList = [
 const BuyEggsContainer = () => {
 
     const [products, setProducts] = useState(productsList)
+    const navVarietyEggsName = ["Brown Eggs","White Eggs","Kadai Eggs"]
+    const dispatch = useDispatch()
 
     function handleChange(params,e) {
         e.preventDefault();
-        if(params === "BrownEggs"){
+        console.log("Eggs Variety: ", params);
+        if(params === "Brown Eggs"){
             const filterBrownEggs = productsList.filter(product => product.productName === "Brown Eggs");
             setProducts(filterBrownEggs);
         }
-        if(params === "WhiteEggs"){
+        if(params === "White Eggs"){
             const filterWhiteEggs = productsList.filter(product => product.productName === "White Eggs");
             setProducts(filterWhiteEggs);
         }
-        if(params === "KadaiEggs"){
+        if(params === "Kadai Eggs"){
             const filterKadaiEggs = productsList.filter(product => product.productName === "Kadai Eggs");
             setProducts(filterKadaiEggs);
         }
+    }
+
+    function handleSpinner() {
+        const load= {
+            isLoading: true
+        };
+        dispatch(showSpinner(load));
     }
     
     return (
@@ -81,9 +93,11 @@ const BuyEggsContainer = () => {
             <section className='w-full h-svh mt-14 bg-slate-100 rounded-2xl overflow-y-scroll' data-aos="fade-left">
                 <nav className='w-full h-16 bg-yellow-500 rounded-tl-2xl rounded-tr-2xl flex items-center justify-center mb-10'>
                     <div className="grid grid-cols-3 w-full justify-items-center text-slate-50 font-bold cursor-pointer">
-                        <div className="hover:text-yellow-300 active:text-yellow-600 text-xs md:text-xl" onClick={(e)=>handleChange("BrownEggs",e)}>Brown Eggs</div>
-                        <div className="hover:text-yellow-300 active:text-yellow-600 text-xs md:text-xl" onClick={(e)=>handleChange("WhiteEggs",e)}>White Eggs</div>
-                        <div className="hover:text-yellow-300 active:text-yellow-600 text-xs md:text-xl" onClick={(e)=>handleChange("KadaiEggs",e)}>Kadai Eggs</div>
+                        {
+                            navVarietyEggsName.map((variety,i) => (
+                                <div key={i} className="hover:text-yellow-300 active:text-yellow-600 text-xs md:text-xl" onClick={(e)=>handleChange(`${variety}`,e)}>{variety}</div>    
+                            ))
+                        }
                     </div>
                 </nav>
 
@@ -104,7 +118,7 @@ const BuyEggsContainer = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <Link href={`/viewProducts/${prods.id}`}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500'>View to Products</button></Link>
+                                <Link href={`/viewProducts/${prods.id}`}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500' onClick={handleSpinner}>View to Products</button></Link>
                             </div>
                         ))
                     }

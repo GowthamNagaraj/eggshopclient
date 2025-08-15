@@ -14,13 +14,21 @@ import HeroSlider from "@/components/HeroSlider";
 import Navbar from "@/components/Navbar";
 import BottomBanner from '@/components/BottomBanner';
 import Footer from '@/components/Footer';
+import Spinner from '@/components/Spinner';
+import { useParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
+
+  const { isLoading } = useSelector((state) => state.spinner);
+
   useEffect(() => {
     AOS.init({
       duration: 800,
       once: true,
     });
+    console.log("spinner state", isLoading);
+    
   }, []);
   return (
     <div className="w-full bg-slate-50 text-black overflow-x-hidden">
@@ -31,6 +39,7 @@ export default function Home() {
         <BuyEggsContainer />
         <BottomBanner />
         <Footer />
+        {/* <Spinner hidden={isLoading}/> */}
       </div>
     </div>
   );
