@@ -102,7 +102,7 @@ const CartItem = () => {
             </div>
             <div className="flex items-center justify-between">
               <h2>Discount:</h2>
-              <p>{subtls > 0 ? discount : 0}</p>
+              <p>{subtls > 0 ? discount.toFixed(2) : 0}</p>
             </div>
             <div className="flex items-center justify-between">
               <h2>Total:</h2>
