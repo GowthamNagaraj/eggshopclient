@@ -1,39 +1,50 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import browneggs from '@/assets/varietyeggs/browneggs.png'
-import whiteEggs from '@/assets/varietyeggs/whiteeggs.png'
-import kadaiEggs from '@/assets/varietyeggs/kadaieggs.png'
 import Image from 'next/image'
-import RollingCounts from './uis/RollingCounts'
-import { FaMinusCircle, FaPlusCircle, FaRegTrashAlt  } from "react-icons/fa";
-import { current } from '@reduxjs/toolkit'
 import CheckOut from './CheckOut'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { CgClose } from "react-icons/cg";
+import { removeFromCart } from '@/store/slices/Cart'
 
 const CartItem = () => {
   const cartItems = useSelector((state)=> state.cart)
-  
+  const dispatch = useDispatch();
+  const [cartItem, setCartItem] = useState(cartItems);
   const GST = '18%';
 
   const [totals, setTotals] = useState(0)
   const [subtls, setSubtls] = useState(0)
   
-  const discount = 173
-  // const [count, setCount] = useState(1);
+  const discount = subtls > 500.00 ? (subtls * 10) / 100 : 0; 
+  
 
   useEffect(()=>{
     subTotal();
-  },[cartItems])
+  },[cartItem])
 
   function subTotal() {
     const amts = [];
-    cartItems.map((item)=> amts.push(item.quantity * parseInt(item.price)));
-    const amt = cartItems.length > 0 ? amts.reduce((prev,curr)=> prev + curr) : 0;
+    cartItem.map((item)=> amts.push(item.quantity * parseInt(item.price)));
+    const amt = cartItem.length > 0 ? amts.reduce((prev,curr)=> prev + curr) : 0;
     const gst = (amt * 18) / 100;
     const subTotal = amt + gst;
     const totalAmt = subTotal - discount
-    setSubtls(subTotal)
-    setTotals(totalAmt)
+    console.log("totalAmt: ", totalAmt);
+    
+    setSubtls(subTotal.toFixed(2))
+    setTotals(totalAmt.toFixed(2))
+  }
+
+  function handleDelete(id) {
+    try {
+      setCartItem(cartItem.filter((item) => parseInt(item.id) !== parseInt(id)))
+      console.log(cartItem);
+      const itemToRemove = { id: id };
+      dispatch(removeFromCart(itemToRemove))
+    } catch (error) {
+      console.log("Error removing item from cart:", error);
+      
+    }
   }
 
 
@@ -44,14 +55,14 @@ const CartItem = () => {
         <div className="bg-yellow-500 p-2 col-span-1 md:col-span-2 rounded-md" data-aos="fade-down">
           <div className="bg-white h-[500px] overflow-y-scroll">
             {
-              cartItems.length > 0 ? cartItems.map((item,i)=>(
-                <div className="flex md:flex-row flex-col items-center bg-white space-y-6 relative p-6 border-b">
+              cartItem.length > 0 ? cartItem.map((item,i)=>(
+                <div className="flex md:flex-row flex-col items-center bg-white space-y-6 relative p-6 border-b" key={i}>
                   <Image 
                     src={item.prodImage}
                     alt={item.productName}
                     className='w-24 h-24 rounded-2xl'
                   />
-                  <div className="flex flex-col">
+                  <div className="flex flex-col space-y-1 p-2">
                     <h1>{item.productName}</h1>
                     <p>RS: <span className='line-through'>{item.oldPrice}</span> <span>{item.price}</span></p>
                     <div className="flex items-center justify-between">
@@ -59,12 +70,11 @@ const CartItem = () => {
                     <p>{item.quantity}</p>
                   </div>
                   </div>
-                  {/* <div className='flex items-center justify-between p-2 bg-gray-200 w-32 rounded-bl-2xl rounded-tr-2xl'>
-                      <button className='cursor-pointer' onClick={() => setCount((prev) => prev > 1 ? prev - 1 : 1)}><FaMinusCircle className='text-red-600 text-3xl hover:text-red-700 active:text-red-800' /></button>
-                      <p className='text-3xl font-bold text-amber-500 text-center'><RollingCounts number={count} /></p>
-                      <button className='cursor-pointer' onClick={() => setCount((prev) => prev + 1)}><FaPlusCircle className='text-lime-600 hover:text-lime-700 active:text-lime-800 text-3xl' /></button>
-                    </div> */}
-                    <FaRegTrashAlt className='text-red-600 absolute top-2 right-2 cursor-pointer'/>
+                  
+                    <CgClose 
+                      className='text-red-600 text-3xl absolute top-2 right-2 cursor-pointer hover:text-red-800'
+                      onClick={() => handleDelete(item.id)}
+                    />
                 </div>
               )) : <div className='flex items-center justify-center h-full'>No Items in Cart</div>
             }
@@ -73,8 +83,8 @@ const CartItem = () => {
         <div className="bg-yellow-500 p-2 rounded-md" data-aos="fade-left">
           <div className="bg-white flex-col p-6">
             {
-              cartItems.map((item,i)=>(
-                <div className="flex items-center justify-between">
+              cartItem.map((item,i)=>(
+                <div className="flex items-center justify-between" key={i}>
                   <h2>{item.productName}</h2>
                   <p>{(item.quantity * parseInt(item.price))}</p>
                 </div>
@@ -92,11 +102,11 @@ const CartItem = () => {
             </div>
             <div className="flex items-center justify-between">
               <h2>Discount:</h2>
-              <p>{discount}</p>
+              <p>{subtls > 0 ? discount : 0}</p>
             </div>
             <div className="flex items-center justify-between">
               <h2>Total:</h2>
-              <p>{totals}</p>
+              <p>{totals > 0 ? totals : 0}</p>
             </div>
             <div className="flex items-center justify-center">
               <a href="#CheckoutForm" className='w-full h-auto bg-lime-500 text-center p-2 rounded-sm text-white font-bold text-2xl'>Check your Details</a>

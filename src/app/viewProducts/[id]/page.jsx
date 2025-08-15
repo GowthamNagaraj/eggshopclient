@@ -28,9 +28,12 @@ const viewProducts = () => {
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
   const dispatch = useDispatch();
+  const addtocartBtn = carts.some((item) => item.id === parseInt(id)) ? "Go to Cart" : "Add to Cart";
 
   useEffect(()=> {
     filterData();
+    // console.log("carts:", carts);
+    
   },[])
 
   function filterData(){
@@ -40,7 +43,7 @@ const viewProducts = () => {
       setProduct(data[0]);
       setImages(data[0].images);
     } catch (error) {
-      
+      console.error("Error filtering data: ", error);
     }
   }
 
@@ -86,7 +89,7 @@ const viewProducts = () => {
                 </div>
               </div>
               <div className='flex flex-col md:flex-row items-center gap-6' data-aos="fade-left">
-                <button className='bg-lime-600 hover:bg-lime-700 active:bg-lime-800 text-slate-50 font-bold text-xl px-8 py-2 rounded-2xl cursor-pointer' onClick={(e) => handleAddtoCart(e)}>{carts.length > 0 ? "Go to cart" : "Add to cart"}</button>
+                <button className='bg-lime-600 hover:bg-lime-700 active:bg-lime-800 text-slate-50 font-bold text-xl px-8 py-2 rounded-2xl cursor-pointer' onClick={(e) => handleAddtoCart(e)}>{addtocartBtn}</button>
                 <Dialog>
                   <DialogTrigger className="bg-amber-600 hover:bg-amber-700 text-slate-50 font-bold text-xl px-8 py-2 rounded-2xl cursor-pointer">Details</DialogTrigger>
                   <DialogContent>

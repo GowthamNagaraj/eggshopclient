@@ -13,7 +13,7 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   }
-  // console.log("Cart Items:", cartItems);
+  console.log("Cart Items navbar:", cartItems);
   
   return (
     <div className="min-w-screen bg-slate-50 px-24 py-2 shadow-2xl">
