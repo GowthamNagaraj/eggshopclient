@@ -17,6 +17,7 @@ import Footer from '@/components/Footer';
 import Spinner from '@/components/Spinner';
 import { useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
+import RegisterandLogin from '@/components/RegisterandLogin';
 
 export default function Home() {
 
@@ -39,7 +40,7 @@ export default function Home() {
         <BuyEggsContainer />
         <BottomBanner />
         <Footer />
-        {/* <Spinner hidden={isLoading}/> */}
+        <RegisterandLogin />
       </div>
     </div>
   );
