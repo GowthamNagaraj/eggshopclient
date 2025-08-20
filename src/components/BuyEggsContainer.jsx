@@ -31,7 +31,7 @@ import k6 from '@/assets/kadaieggs/k6.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
-import { showSpinner } from '@/store/slices/Spinner'
+// import { showSpinner } from '@/store/slices/Spinner'
 
 const productsList = [
             { id: 1, productName: "Brown Eggs", prodImage: br1, price: "3.00", oldPrice: '7.00', quantity:0 },
@@ -91,12 +91,12 @@ const BuyEggsContainer = () => {
         }
     }
 
-    function handleSpinner() {
-        const load= {
-            isLoading: true
-        };
-        dispatch(showSpinner(load));
-    }
+    // function handleSpinner() {
+    //     const load= {
+    //         isLoading: true
+    //     };
+    //     dispatch(showSpinner(load));
+    // }
     
     return (
         <div className='min-w-full min-h-full md:px-28 px-12 mt-8 mb-20 overflow-hidden'>
@@ -130,7 +130,7 @@ const BuyEggsContainer = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <Link href={`/viewProducts/${prods.id}`}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500' onClick={handleSpinner}>View to Products</button></Link>
+                                <Link href={`/viewProducts/${prods.id}`}><button className='w-full py-3 rounded-bl-2xl rounded-br-2xl bg-amber-300 cursor-pointer hover:bg-lime-500'>View to Products</button></Link>
                             </div>
                         ))
                     }

@@ -36,19 +36,28 @@ const RegisterandLogin = () => {
     userData.forEach((item) => {
       if (item.email === user.email && item.password === user.password) {
         alert("Login successful", "success");
-        return;
-      }else{
+        dispatch({ type: "LOGIN", payload: user });
+        setLogin(false);
+        setRegister(false);
+        setForgotPassword(false);
+        navigate.push("/")
+        setUser({
+          user: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
         alert("Invalid email or password", "error");
+        setUser({
+          user: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
         return;
       }
     });
-    
-    dispatch({ type: "LOGIN", payload: user });
-    alert("Login successful", "success");
-    setLogin(false);
-    setRegister(false);
-    setForgotPassword(false);
-    navigate.push("/")
   };
 
   const handleRegsiter = (e) => {
@@ -73,6 +82,12 @@ const RegisterandLogin = () => {
     setRegister(false);
     setForgotPassword(false);
     navigate.push("/");
+    setUser({
+      user: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   }
 
   const handleForget = (e) => {
@@ -87,6 +102,12 @@ const RegisterandLogin = () => {
     setLogin(true);
     setForgotPassword(false);
     setRegister(false);
+    setUser({
+      user: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   }
 
   return (

@@ -6,22 +6,12 @@ import Image from 'next/image';
 import mobilemenu from "@/assets/PrimeAlignJustify.png"
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { showSpinner } from '@/store/slices/Spinner'
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const cartItems = useSelector((state) => state.cart);
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
-  }
-  const dispatch = useDispatch()
-  // console.log("Cart Items navbar:", cartItems);
-
-  function handleSpinner() {
-    const load = {
-      isLoading: true
-    };
-    dispatch(showSpinner(load));
   }
   
   return (
@@ -50,7 +40,8 @@ const Navbar = () => {
           />
           <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-1 ml-1'>{cartItems.length}</span>
           </Link>
-          <button className='px-4 py-1 md:px-6 md:py-2 bg-amber-300'>Login</button>
+          {/* <button className='px-4 py-1 md:px-6 md:py-2 bg-amber-300'>Login</button> */}
+          <Link href={'/Forms'} className='px-4 py-1 md:px-6 md:py-2 bg-amber-300'>Login</Link>
         </div>
       </div>
       {/* desktop responsive */}
@@ -67,7 +58,6 @@ const Navbar = () => {
             src={cartIcon}
             alt="Cart Icon"
             className="cursor-pointer w-7 h-7"
-            onClick={handleSpinner}
           />
           <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-2 right-0'>{cartItems.length}</span>
           </Link>

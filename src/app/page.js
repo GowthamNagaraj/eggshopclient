@@ -14,18 +14,14 @@ import HeroSlider from "@/components/HeroSlider";
 import Navbar from "@/components/Navbar";
 import BottomBanner from '@/components/BottomBanner';
 import Footer from '@/components/Footer';
-import { useSelector } from 'react-redux';
 
 export default function Home() {
-
-  const { isLoading } = useSelector((state) => state.spinner);
 
   useEffect(() => {
     AOS.init({
       duration: 800,
       once: true,
     });
-    console.log("spinner state", isLoading);
     
   }, []);
   return (

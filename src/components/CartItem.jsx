@@ -50,7 +50,7 @@ const CartItem = () => {
 
 
   return (
-    <div className='w-full h-auto px-12 md:px-28 bg-white mt-14 md:mt-0'>
+    <div className='w-full h-auto px-12 md:px-28 bg-white mt-14 md:mt-0 flex flex-col items-center justify-center'>
       <div className="grid grid-cols-1 md:grid-cols-3 bg-white p-2 gap-6">
         <div className="bg-yellow-500 p-2 col-span-1 md:col-span-2 rounded-md" data-aos="fade-down">
           <div className="bg-white h-[500px] overflow-y-scroll">
@@ -109,12 +109,12 @@ const CartItem = () => {
               <p>{totals > 0 ? totals : 0}</p>
             </div>
             <div className="flex items-center justify-center">
-              <a href="#CheckoutForm" className='w-full h-auto bg-lime-500 text-center p-2 rounded-sm text-white font-bold text-2xl'>Check your Details</a>
+              <a className='w-full h-auto bg-lime-500 text-center p-2 rounded-sm text-white font-bold text-2xl'>Check your Details</a>
             </div>
           </div>
         </div>
       </div>
-      <CheckOut id="CheckoutForm"/>
+      <CheckOut />
     </div>
   )
 }

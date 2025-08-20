@@ -20,25 +20,30 @@ import { useParams } from 'next/navigation';
 import { addToCart } from '@/store/slices/Cart';
 import BuyEggsContainer from '@/components/BuyEggsContainer';
 
-const viewProducts = () => {
+const ViewProducts = () => {
   const [count, setCount] = useState(20);
   const datas = useSelector((state) => state.viewProducts);
   const carts = useSelector((state) => state.cart);
-  const {id} = useParams();
+  const { id } = useParams();
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
   const dispatch = useDispatch();
-  const addtocartBtn = carts.some((item) => item.id === parseInt(id)) ? "Go to Cart" : "Add to Cart";
 
-  useEffect(()=> {
-    filterData();
-  },[])
+  const addtocartBtn = carts.some((item) => item.id === parseInt(id)) 
+    ? "Go to Cart" 
+    : "Add to Cart";
 
-  function filterData(){
+  useEffect(() => {
+    if (id) filterData();
+  }, [id, datas]);
+
+  function filterData() {
     try {
       const data = datas.filter((item) => item.id === parseInt(id));
-      setProduct(data[0]);
-      setImages(data[0].images);
+      if (data.length > 0) {
+        setProduct(data[0]);
+        setImages(data[0].images || []);
+      }
     } catch (error) {
       console.error("Error filtering data: ", error);
     }
@@ -46,18 +51,19 @@ const viewProducts = () => {
 
   function handleAddtoCart(e) {
     e.preventDefault();
+    if (!product.id) return;
     const cartData = {
       id: product.id,
       productName: product.productName,
-      prodImage: product.images[0],
+      prodImage: product.images ? product.images[0] : "",
       price: product.price,
       oldPrice: product.oldPrice,
       quantity: count
     }
-    console.log("Cart Data: ", cartData);
-    dispatch(addToCart(cartData))
+    dispatch(addToCart(cartData));
     alert("Item Added to Cart");
   }
+
   return (
     <div className='overflow-hidden bg-white mt-10 md:mt-0'>
       <Navbar />
@@ -65,7 +71,7 @@ const viewProducts = () => {
         <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2'>
           <div data-aos="fade-up" className='max-w-md md:max-w-xl lg:max-w-3xl md:col-span-2 lg:col-span-1 max-h-[500px]'><ProductViewSlider images={images}/></div>
 
-          <div className="bg-slate-100 max-w-5xl max-h-[600px] col-span-2 rounded-xl shadow-md p-5">
+          <div className="bg-slate-100 max-w-5xl max-h-[675px] col-span-2 rounded-xl shadow-md p-5">
             <div>
               <BreadCrums data-aos="fade-left" productName={product.productName}/>
               <h1 className='text-3xl lg:text-xl font-bold text-amber-500' data-aos="fade-left">Kariyappatti Siva Eggs ({product.productName})</h1>
@@ -104,11 +110,10 @@ const viewProducts = () => {
         </section>
       </div>
       <ReviewsBox />
-      {/* <EggsVariety /> */}
       <BuyEggsContainer eggsVariety={product.productName}/>
       <Footer />
     </div>
   )
 }
 
-export default viewProducts
+export default ViewProducts;
