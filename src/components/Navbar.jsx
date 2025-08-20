@@ -72,7 +72,7 @@ const Navbar = () => {
           <span className='bg-red-600 w-5 h-5 text-center p-0.5 rounded-full text-xs font-bold text-white absolute -top-2 right-0'>{cartItems.length}</span>
           </Link>
 
-            <button className='px-6 py-2 bg-amber-300'>Login</button>
+            <Link href={'/Forms'} className='px-4 py-1 md:px-6 md:py-2 bg-amber-300'>Login</Link>
           </div>
         </nav>
       </div>

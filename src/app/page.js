@@ -14,10 +14,7 @@ import HeroSlider from "@/components/HeroSlider";
 import Navbar from "@/components/Navbar";
 import BottomBanner from '@/components/BottomBanner';
 import Footer from '@/components/Footer';
-import Spinner from '@/components/Spinner';
-import { useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import RegisterandLogin from '@/components/RegisterandLogin';
 
 export default function Home() {
 
@@ -40,7 +37,6 @@ export default function Home() {
         <BuyEggsContainer />
         <BottomBanner />
         <Footer />
-        <RegisterandLogin />
       </div>
     </div>
   );

@@ -1,113 +1,253 @@
-"use client"
-import React, { useState } from 'react'
-import Toastfy from './uis/Toastfy';
+"use client";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { addUser } from "@/store/slices/login";
 
 const RegisterandLogin = () => {
-  const [isActive, setIsActive] = useState(false);
-  const [isForgets, setIsForgets] = useState(false);
-  const [toast, setToast] = useState({ success: false, error: false, msg: "" });
+  const [user, setUser] = useState({
+    user: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handleSubmit = (e) => {
+  const [isLogin, setLogin] = useState(true);
+  const [isRegister, setRegister] = useState(false);
+  const [isForgotPassword, setForgotPassword] = useState(false);
+  const navigate = useRouter();
+
+
+  const userData = useSelector((state) => state.login);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("userData", userData);
+  });
+
+  const handleLogin = (e) => {
     e.preventDefault();
-
-    if (isActive) {
-      // ✅ Registration logic here
-      setToast({ success: true, error: false, msg: "Registered successfully!" });
-    } else {
-      // ✅ Login logic here
-      setToast({ success: true, error: false, msg: "Logged in successfully!" });
+    if (user.email === "" || user.password === "") {
+      alert("Please fill in all fields", "error");
+      return;
     }
+    console.log("userData login", user);
+
+    userData.forEach((item) => {
+      if (item.email === user.email && item.password === user.password) {
+        alert("Login successful", "success");
+        return;
+      }else{
+        alert("Invalid email or password", "error");
+        return;
+      }
+    });
+    
+    dispatch({ type: "LOGIN", payload: user });
+    alert("Login successful", "success");
+    setLogin(false);
+    setRegister(false);
+    setForgotPassword(false);
+    navigate.push("/")
   };
 
-  const handleForgotPassword = () => {
-    // ✅ Forgot password logic
-    setToast({ success: true, error: false, msg: "Password reset link sent!" });
-  };
+  const handleRegsiter = (e) => {
+    e.preventDefault();
+    if (
+      user.user === "" ||
+      user.email === "" ||
+      user.password === "" ||
+      user.confirmPassword === ""
+    ) {
+      alert("Please fill in all fields", "error");
+      return;
+    }
+    if (user.password !== user.confirmPassword) {
+      alert("Passwords do not match", "error");
+      return;
+    }
+    console.log("userData register", user);
+    dispatch(addUser(user));
+    alert("Registration successful", "success");
+    setLogin(false);
+    setRegister(false);
+    setForgotPassword(false);
+    navigate.push("/");
+  }
+
+  const handleForget = (e) => {
+    e.preventDefault();
+    if (user.email === "") {
+      alert("Please enter your email", "error");
+      return;
+    }
+    console.log("userData forget", user);
+    // Here you would typically send a request to your backend to handle password reset
+    alert("Password reset link sent to your email", "success");
+    setLogin(true);
+    setForgotPassword(false);
+    setRegister(false);
+  }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-yellow-300 to-red-600 z-50">
+    <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-yellow-300 to-red-600 z-50`}>
       <div className="p-8 rounded-lg shadow-lg w-96 bg-transparent backdrop-blur-2xl">
-        {isForgets ? (
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold mb-4">Forgot Password</h2>
-            <p className="mb-4 text-gray-600">Enter your email to reset your password</p>
-            <input
-              type="email"
-              className="w-full p-2 border border-gray-300 rounded mb-4"
-              placeholder="Enter your email"
-              required
-            />
-            {
-                /* ✅ Show toast for success/error messages */
-                toast.success && <Toastfy call={{ success: true }} msg={toast.msg} />
-                }
-                {
-                toast.error && <Toastfy call={{ error: true }} msg={toast.msg} />
-            }
+        {isLogin && (
+          <form className="space-y-2 text-white" onSubmit={handleLogin}>
+            <div>
+              <input
+                type="email"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your email"
+                value={user.email}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your password"
+                value={user.password}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+              />
+            </div>
             <button
-              onClick={handleForgotPassword}
-              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+              type="submit"
+              className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Login
+            </button>
+            <p className="mt-4 text-center text-sm">
+              Don't have an account?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => {
+                  setLogin(false);
+                  setRegister(true);
+                }}
+              >
+                Register
+              </span>
+            </p>
+            <p className="text-center text-sm">
+              Forgot your password?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => {
+                  setLogin(false);
+                  setForgotPassword(true);
+                }}
+              >
+                Reset Password
+              </span>
+            </p>
+          </form>
+        )}
+        {/* Register + Forgot password stay same */}
+        {isRegister && (
+          <form className="space-y-2 text-white" onSubmit={handleRegsiter}>
+            <div>
+              <input
+                type="text"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your name"
+                value={user.user}
+                onChange={(e) => setUser({ ...user, user: e.target.value })}
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your email"
+                value={user.email}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your password"
+                value={user.password}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your password"
+                value={user.confirmPassword}
+                onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Register
+            </button>
+            <p className="mt-4 text-center text-sm">
+              You already account?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => {
+                  setLogin(true);
+                  setRegister(false);
+                }}
+              >
+                Login
+              </span>
+            </p>
+            <p className="text-center text-sm">
+              Forgot your password?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => {
+                  setRegister(false);
+                  setForgotPassword(true);
+                }}
+              >
+                Reset Password
+              </span>
+            </p>
+          </form>
+        )}
+        {/* forget */}
+        {isForgotPassword && (
+          <form className="space-y-2 text-white" onSubmit={handleForget}>
+            <div>
+              <input
+                type="email"
+                className="w-full p-2 mb-4 border rounded"
+                placeholder="Enter your email"
+                value={user.email}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Reset Password
             </button>
-            <button
-              onClick={() => setIsForgets(false)}
-              className="mt-4 w-full bg-gray-300 p-2 rounded hover:bg-gray-400"
-            >
-              Back to Login/Register
-            </button>
-          </div>
-        ) : (
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold mb-4">{isActive ? "Register" : "Login"}</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="email"
-                className="w-full p-2 border border-gray-300 rounded mb-4"
-                placeholder="Enter your email"
-                required
-              />
-              <input
-                type="password"
-                className="w-full p-2 border border-gray-300 rounded mb-4"
-                placeholder="Enter your password"
-                required
-              />
-              {isActive && (
-                <input
-                  type="password"
-                  className="w-full p-2 border border-gray-300 rounded mb-4"
-                  placeholder="Confirm Password"
-                  required
-                />
-              )}
-              <button
-                type="submit"
-                className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            <p className="mt-4 text-center text-sm">
+              Remember your password?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => {
+                  setLogin(true);
+                  setForgotPassword(false);
+                }}
               >
-                {isActive ? "Register" : "Login"}
-              </button>
-            </form>
-            <button
-              onClick={() => setIsActive(!isActive)}
-              className="mt-4 w-full bg-gray-300 p-2 rounded hover:bg-gray-400"
-            >
-              {isActive ? "Already have an account? Login" : "Don't have an account? Register"}
-            </button>
-            <button
-              onClick={() => setIsForgets(true)}
-              className="mt-2 w-full bg-red-500 text-white p-2 rounded hover:bg-red-600"
-            >
-              Forgot Password?
-            </button>
-          </div>
+                Login
+              </span>
+            </p>
+          </form>
         )}
       </div>
-
-      {/* ✅ Show Toast only if active */}
-      {(toast.success || toast.error) && (
-        <Toastfy call={{ success: toast.success, error: toast.error }} msg={toast.msg} />
-      )}
     </div>
   );
 };
