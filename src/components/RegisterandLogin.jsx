@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { addUser } from "@/store/slices/login";
 import OTPForm from "./OTPForm";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 const RegisterandLogin = () => {
   const [user, setUser] = useState({
@@ -12,6 +14,18 @@ const RegisterandLogin = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const [isVisible, setIsVisible] = useState({
+    loginPwd: false,
+    registerPwd: false,
+    registerConfirmPwd: false,
+  });
+  const toggleVisibility = () => setIsVisible(prevState => ({
+    ...prevState,
+    loginPwd: !prevState.loginPwd,
+    registerPwd: !prevState.registerPwd,
+    registerConfirmPwd: !prevState.registerConfirmPwd,
+  }));
 
   const [isLogin, setLogin] = useState(true);
   const [isRegister, setRegister] = useState(false);
@@ -124,20 +138,34 @@ const RegisterandLogin = () => {
             <div>
               <input
                 type="email"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your email"
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
             </div>
-            <div>
+            <div className="relative">
               <input
-                type="password"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                type={isVisible.loginPwd ? "text" : "password"}
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your password"
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
+              <button
+                className="absolute inset-y-0 end-0 flex items-center z-20 px-2.5 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-indigo-500 transition-colors"
+                type="button"
+                onClick={toggleVisibility}
+                aria-label={isVisible.loginPwd ? "Hide password" : "Show password"}
+                aria-pressed={isVisible.loginPwd}
+                aria-controls="password"
+              >
+                {isVisible.loginPwd ? (
+                  <FaRegEye size={20} aria-hidden="true" />
+                ) : (
+                  <FaRegEyeSlash size={20} aria-hidden="true" />
+                )}
+              </button>
             </div>
             <button
               type="submit"
@@ -177,7 +205,7 @@ const RegisterandLogin = () => {
             <div>
               <input
                 type="text"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your name"
                 value={user.user}
                 onChange={(e) => setUser({ ...user, user: e.target.value })}
@@ -186,29 +214,57 @@ const RegisterandLogin = () => {
             <div>
               <input
                 type="email"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your email"
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
             </div>
-            <div>
+            <div className="relative">
               <input
-                type="password"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                type={isVisible.registerPwd ? "text" : "password"}
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your password"
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
+              <button
+                className="absolute inset-y-0 end-0 flex items-center z-20 px-2.5 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-indigo-500 transition-colors"
+                type="button"
+                onClick={toggleVisibility}
+                aria-label={isVisible.registerPwd ? "Hide password" : "Show password"}
+                aria-pressed={isVisible.registerPwd}
+                aria-controls="password"
+              >
+                {isVisible.registerPwd ? (
+                  <FaRegEye size={20} aria-hidden="true" />
+                ) : (
+                  <FaRegEyeSlash size={20} aria-hidden="true" />
+                )}
+              </button>
             </div>
-            <div>
+            <div className="relative">
               <input
-                type="password"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                type={isVisible.registerConfirmPwd ? "text" : "password"}
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your password"
                 value={user.confirmPassword}
                 onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
               />
+              <button
+                className="absolute inset-y-0 end-0 flex items-center z-20 px-2.5 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-indigo-500 transition-colors"
+                type="button"
+                onClick={toggleVisibility}
+                aria-label={isVisible.registerConfirmPwd ? "Hide password" : "Show password"}
+                aria-pressed={isVisible.registerConfirmPwd}
+                aria-controls="password"
+              >
+                {isVisible.registerConfirmPwd ? (
+                  <FaRegEye size={20} aria-hidden="true" />
+                ) : (
+                  <FaRegEyeSlash size={20} aria-hidden="true" />
+                )}
+              </button>
             </div>
             <button
               type="submit"
@@ -248,7 +304,7 @@ const RegisterandLogin = () => {
             <div>
               <input
                 type="email"
-                className="w-full p-2 mb-4 border rounded border-gray-300"
+                className="w-full text-sm text-slate-600 bg-white border border-slate-300 appearance-none rounded ps-3.5 pe-10 py-2.5 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 placeholder="Enter your email"
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
